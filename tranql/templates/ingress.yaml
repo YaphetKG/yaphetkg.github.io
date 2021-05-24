@@ -22,6 +22,6 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: {{ .Values.port }}
+          serviceName: {{ include "tranql.fullname" . }}
           servicePort: {{ .Values.port }}
 {{ end }}
