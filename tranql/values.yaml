@@ -48,7 +48,7 @@ redis:
   # --- no clustering for standalone
   # issue with seeding replicas using redis chart.
   cluster:
-    slaveCount: 0
+    slaveCount: 1
 
   master:
     resources:
@@ -58,6 +58,21 @@ redis:
     command: ""
     # Command to do a little house keeping
     # Use this to download rdb file if seeding needs to be done
+    readinessProbe:
+      enabled: false
+    livenessProbe:
+      enabled: false
+    extraFlags:
+      - "--loadmodule /usr/lib/redis/modules/redisgraph.so"
+    service:
+      port: 6379
+  clusterDomain: "blackbalsam-cluster"
+  slave:
+    resources:
+      requests:
+        memory: 8Gi
+        cpu: 200m
+    command: ""
     readinessProbe:
       enabled: false
     livenessProbe:
