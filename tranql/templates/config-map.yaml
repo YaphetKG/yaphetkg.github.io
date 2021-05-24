@@ -17,8 +17,12 @@ data:
         url: "redis:"
         redis: true
         redis_connection_params:
-          {{- if .Values.redis.enabled }}
-          host: {{ include "tranql.redis.fullname" . }}
+          {{- if and .Values.redis.enabled }}
+          {{- if .Values.redis.cluster.slaveCount }}
+          host: {{ include "tranql.redis.fullname" . }}-slave
+          {{ else }}
+          host: {{ include "tranql.redis.fullname" . }}-master
+          {{ end }}
           port: {{ .Values.redis.redisPort }}
           {{- else }}
           host: {{ .Values.existingRedis.host }}

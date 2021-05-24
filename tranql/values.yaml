@@ -7,8 +7,6 @@ gunicorn:
   workerTimeout: 300
 service:
   type: ClusterIP
-extraEnv: []
-annotations: {}
 
 existingRedis:
   host: ""
@@ -17,5 +15,54 @@ existingRedis:
   secret: ""
   secretPasswordKey: ""
 
+redisDumpUri: "" # https://stars.renci.org/var/kgx_data/roger_graph.rdb
+ingress:
+  class:
+  enable: false
+  tls:
+    secretName:
+  host:
 redis:
   enabled: true
+  # To allow loading seeding the db from rdb files.
+  # --- start seeddb configuration
+  persistence:
+    existingClaim: tranql-redis-pvc
+  configmap: |-
+    # Disables appendonly , this instance is readonly. And needs to be
+    # seeded from RDB files if needed.
+    appendonly no
+    # Disable RDB persistence, AOF persistence already enabled.
+    save ""
+  # For simplicity in this chart we use auth disable.
+  # When using as part of other chart, tranql chart will check
+  # for usePassword True. And currently only supports values for
+  # existingSecret and existingSecretPasswordKey.
+  usePassword: false
+  # --- end seeddb configuration
+  image:
+    repository: redislabs/redisgraph
+    tag: 2.2.14
+  redis:
+    command: "redis-server"
+  # --- no clustering for standalone
+  # issue with seeding replicas using redis chart.
+  cluster:
+    slaveCount: 0
+
+  master:
+    resources:
+      requests:
+        memory: 8Gi
+        cpu: 200m
+    command: ""
+    # Command to do a little house keeping
+    # Use this to download rdb file if seeding needs to be done
+    readinessProbe:
+      enabled: false
+    livenessProbe:
+      enabled: false
+    extraFlags:
+      - "--loadmodule /usr/lib/redis/modules/redisgraph.so"
+    service:
+      port: 6379
