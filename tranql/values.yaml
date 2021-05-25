@@ -1,5 +1,5 @@
-image: helxplatform/tranql-app
-imageTag: develop-0.0.56
+image: helx-platform/tranql-app
+imageTag: develop-0.0.57
 replicas: 1
 port: 8081
 gunicorn:
@@ -53,8 +53,8 @@ redis:
   master:
     resources:
       requests:
-        memory: 8Gi
-        cpu: 200m
+        memory: 16Gi
+        cpu: 2
     command: ""
     # Command to do a little house keeping
     # Use this to download rdb file if seeding needs to be done
@@ -70,8 +70,8 @@ redis:
   slave:
     resources:
       requests:
-        memory: 8Gi
-        cpu: 200m
+        memory: 16Gi
+        cpu: 2
     command: ""
     readinessProbe:
       enabled: false
