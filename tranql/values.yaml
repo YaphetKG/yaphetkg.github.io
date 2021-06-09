@@ -1,5 +1,4 @@
-image: helx-platform/tranql-app
-imageTag: develop-0.0.57
+image: helxplatform/tranql-app
 replicas: 1
 port: 8081
 gunicorn:
