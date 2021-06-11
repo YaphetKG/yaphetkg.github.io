@@ -2,8 +2,23 @@ apiVersion: v1
 entries:
   tranql:
   - apiVersion: v2
+    appVersion: develop-0.0.59
+    created: "2021-06-11T13:17:06.0105846-04:00"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.0.0
+    description: A Helm chart for Kubernetes
+    digest: 72598ff51aa89b38b7808e5248d7f61632852e452acb4731b9b368099435ea30
+    name: tranql
+    type: application
+    urls:
+    - https://yaphetkg.github.io/tranql/tranql-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: develop-0.0.58
-    created: "2021-06-09T08:36:22.1988284-04:00"
+    created: "2021-06-11T13:17:05.9431241-04:00"
     dependencies:
     - condition: redis.enabled
       name: redis
@@ -18,7 +33,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: "0.38"
-    created: "2021-06-09T08:36:22.1713889-04:00"
+    created: "2021-06-11T13:17:05.9144468-04:00"
     dependencies:
     - condition: redis.enabled
       name: redis
@@ -31,4 +46,4 @@ entries:
     urls:
     - https://yaphetkg.github.io/tranql/tranql-0.1.0.tgz
     version: 0.1.0
-generated: "2021-06-09T08:36:22.1504692-04:00"
+generated: "2021-06-11T13:17:05.8916454-04:00"

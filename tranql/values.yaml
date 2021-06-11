@@ -1,4 +1,6 @@
 image: helxplatform/tranql-app
+# --  Overrides image tag. default is Chart.appversion
+imageTagOverride: ""
 replicas: 1
 port: 8081
 gunicorn:
